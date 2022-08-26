@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final_project_YZ</title>
+    <style>
+
+        body{
+            
+            background-image: url("https://c4.wallpaperflare.com/wallpaper/448/174/357/neon-4k-hd-best-for-desktop-wallpaper-preview.jpg");
+            background-position: center;
+           
+        }
+        section {
+            display: grid;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-family: Arial, Helvetica, sans-serif;
+            color:aliceblue;
+            
+        }
+
+        input {
+            outline: none;
+            padding: 9px;
+            font-family: Arial, Helvetica, sans-serif;
+            
+        }
+        
+        button {
+            outline: none;
+            padding: 10px;
+            border: none;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        button:hover {
+            cursor: pointer;
+            background:none;
+            border:none;
+            color: azure;
+        }
+
+        li {
+            margin: 10px 0;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: 1px solid rgba(128, 128, 128, 0.331);
+            font-family: Arial, Helvetica, sans-serif;
+            color:aliceblue;
+        
+        }
+
+        #add, #edit {
+            padding: 10px;
+            width: 70px;
+        }
+
+        #add:hover, #edit:hover {
+            background-color: rgba(155, 255, 155, 0.567);
+        }
+
+        .taskEdit {
+            font-weight: bold;
+            background-color: rgba(255, 92, 228, 0.432);
+        }
+
+        .taskDel {
+            font-weight: bold;
+            background-color: rgba(250, 128, 128, 0.719);
+        }
+
+        .taskEdit:hover, .taskDel:hover {
+            filter: grayscale(90%);
+            border:none;
+            color: azure;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <h1>To-Do List</h1>
+        <div>
+            <input type="text" id="tarea" />
+            <button id="add">Añadir</button>
+            <button id="edit" hidden>Editar</button>
+        </div>
+    </section>
+
+    <ul id="tareas">
+
+    </ul>
+
+    <script>
+        const tareainput = document.querySelector("#tarea");
+        const btnAdd = document.querySelector("#add");
+        const editBtn = document.querySelector("#edit");
+        const listaDeTareas = document.querySelector("#tareas");
+        let tareaSeleccionada = { id: "", titulo: "" };
+
+        function obtenerTareas () {
+            fetch("/verTareas").then(res => res.json()).then(tareas =>{
+                if (Array.isArray(tareas)) {
+                    listaDeTareas.innerHTML = "";
+                    tareas.forEach(tarea => renderizarTarea(tarea));
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            obtenerTareas();
+         });
+        
+        function renderizarTarea (tarea) {
+            const elementoDeTarea = document.createElement('li');
+            const taskEditBtn = document.createElement('button');
+            const del = document.createElement('button');
+            taskEditBtn.className = "taskEdit";
+            del.className = "taskDel";
+            taskEditBtn.appendChild(document.createTextNode("Editar"));
+            del.appendChild(document.createTextNode("Eliminar"));
+
+            elementoDeTarea.appendChild(document.createTextNode(tarea.titulo));
+
+            listaDeTareas.appendChild(elementoDeTarea);
+            elementoDeTarea.appendChild(taskEditBtn);
+            elementoDeTarea.appendChild(del);
+
+            taskEditBtn.addEventListener('click', () => {
+                btnAdd.hidden = true;
+                editBtn.hidden = false;
+                tareaSeleccionada.id = tarea.id;
+                tareaSeleccionada.titulo = tarea.titulo;
+
+                tareainput.value = tarea.titulo;
+            });
+            
+            del.addEventListener('click', ()=> {
+                if (confirm("¿Está seguro de que desea eliminar esta tarea?")) {
+                    fetch(`/eliminar/${tarea.id}/`,{method:'delete'}).then(res=> res.text()).then(respuesta=>{
+                        obtenerTareas();
+                    });
+                }
+            });
+        };
+
+        btnAdd.addEventListener('click', () => {
+            fetch(`/crear/${tareainput.value}`,{method:'post'}).then(res => res.text()).then(respuesta => {
+                tareainput.value = "";
+                fetch("/verTareas").then(res => res.json()).then(tareas => {
+                    if (Array.isArray(tareas)) {
+                        listaDeTareas.innerHTML = "";
+                        tareas.forEach(tarea => renderizarTarea(tarea));
+                    }
+                })
+            });
+        });
+
+        editBtn.addEventListener('click', async () => {
+            await fetch(`/editar/${tareaSeleccionada.id}/${tareainput.value}`,{method:'put'});
+
+            obtenerTareas();
+            btnAdd.hidden = false;
+            editBtn.hidden = true;
+        });
+    </script>
+</body>
+</html>
