@@ -117,7 +117,10 @@ Este proyecto está bajo la Licencia (Tu Licencia) - mira el archivo [LICENSE.md
 
 ## Creditos 🎁
 
-* Aqui encontré algo de documentación sobre la BD a usar: https://www.npmjs.com/package/better-sqlite3-helper 📢
+Aqui encontré algo de documentación sobre la BD a usar: 
+* https://www.npmjs.com/package/better-sqlite3-helper 📢
+* https://stackoverflow.com/questions/36410486/login-authentication-in-node-js-using-sqlite3-bookshelf
+* https://developer.mozilla.org/es/
 * Al profesor Jean Arnaud.
 
 ## Sobre el autor 👷
