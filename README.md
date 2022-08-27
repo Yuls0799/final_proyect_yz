@@ -2,7 +2,7 @@
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 >Este es mi proyecto final para programación 1, un humilde To-do list o lista de tareas.
-
+                      ![image](https://user-images.githubusercontent.com/107286036/187015945-626faccb-dbca-4fdf-bb9c-61ecee0ed86c.png)
 
 ##  Minimalist To-do list 📝
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -57,10 +57,6 @@ _1. Abra la terminal del proyecto y coloque el siguiente comando:_
 npm install
 ```
 
-![image](https://user-images.githubusercontent.com/107286036/187003468-b17a75d3-6fc1-4dd3-8fb6-fbe6cdd9b534.png)
-
-
-
 _2. Ya instaldo use el comando:_
 
 ```
@@ -111,8 +107,9 @@ https://drive.google.com/file/d/17UQB9VkkLeQI021n5Ll_xmlpJps0Udys/view?usp=shari
 
 ## Version npm 🏷️
 
-[![NPM Version][npm-image]][npm-url]
-
+```
+8.12.1
+```
 
 ## Licencia 📄
 
@@ -123,10 +120,9 @@ Este proyecto está bajo la Licencia (Tu Licencia) - mira el archivo [LICENSE.md
 * Aqui encontré algo de documentación sobre la BD a usar: https://www.npmjs.com/package/better-sqlite3-helper 📢
 * Al profesor Jean Arnaud.
 
-#Sobre el autor
-GitHub : [Yuls0799](https://github.comYuls0799)
-IG     : ![yazc_02_qr](https://user-images.githubusercontent.com/107286036/187014959-79ef5f2a-a504-4667-9ace-b63df9b20efe.png)
+## Sobre el autor 👷
+*GitHub : [Yuls0799](https://github.comYuls0799)
 
 
 ---
-⌨️ Con ❤️ por [Yuls0799](https://github.comYuls0799)) 😊
+⌨️ Con ❤️ por [Yuls0799](https://github.comYuls0799) 😊
